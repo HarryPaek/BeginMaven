@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.netfoundation.app</groupId>
-  <artifactId>BeginMaven</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <artifactId>EclipseMaven</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>BeginMaven</name>
+  <name>EclipseMaven</name>
   <url>http://maven.apache.org</url>
 
   <properties>
@@ -15,12 +15,6 @@
   </properties>
 
   <dependencies>
-  <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
-    <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-context</artifactId>
-        <version>3.2.17.RELEASE</version>
-    </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
