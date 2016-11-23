@@ -5,8 +5,6 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -48,7 +46,7 @@ public class MemberAddServlet extends HttpServlet {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		
-		request.setCharacterEncoding("UTF-8");
+		// request.setCharacterEncoding("UTF-8");
 
 	    try {
 			DriverManager.registerDriver(new com.mysql.jdbc.Driver());
@@ -59,14 +57,23 @@ public class MemberAddServlet extends HttpServlet {
 			stmt.setString(3, request.getParameter("password"));
 			stmt.executeUpdate();
 			
+			// response.sendRedirect("list");
+
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.println("<html>");
-			out.println("<head><title>회원 등록 결과</title></head>");
+			out.println("<head>");
+			out.println("<title>회원 등록 결과</title>");
+			out.println("<meta http-equiv='Refresh' content='1;url=list'>");
+			out.println("</head>");
 			out.println("<body>");
 			out.println("<p>성공적으로 등록되었습니다!</p>");
 			out.println("</body>");
 			out.println("</html>");
+			
+			// //리프래시 정보를 응답 해더에 추가
+			// response.addHeader("Refresh", "1;url=list");
+			
 		} catch (Exception e) {
 			throw new ServletException(e);
 		}

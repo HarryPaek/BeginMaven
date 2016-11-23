@@ -44,7 +44,7 @@ public class MemberListServlet extends GenericServlet {
 			out.println("<h1>회원목록</h1>");
 			out.println("<p><a href='add'>신규 회원</a></p>");
 			while (rs.next()) {
-				out.format("%1$d, %2$s, %3$s, %4$tF %4$tT<br>", rs.getInt("MNO"), rs.getString("MNAME"), rs.getString("EMAIL"), rs.getTimestamp("CRE_DATE"));
+				out.format("%1$d, <a href='update?no=%1$d'>%2$s</a>, %3$s, %4$tF %4$tT<br>", rs.getInt("MNO"), rs.getString("MNAME"), rs.getString("EMAIL"), rs.getTimestamp("CRE_DATE"));
 			}
 			out.println("</body>");
 			out.println("</html>");
