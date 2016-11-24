@@ -3,13 +3,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>시스템 오류!</title>
+<meta http-equiv="Refresh" content="1; url=login">
+<title>로그인 실패</title>
 </head>
 <body>
     <jsp:include page="/Header.jsp" />
-    <br>
-    <p>요청을 처리하는 중에 문제가 발생하였습니다. 잠시 후에 다시 요청하시기 바랍니다.</p>
-    <p>계속해서 문제가 발생하면, 시스템 관리자에게 연락하시기 바랍니다.</p>
+    <h2>로그인 실패!</h2>
+    <p>이메일 또는 암호가 맞지 않습니다!<br>
+       잠시 후, 다시 로그인 화면으로 갑니다.</p>
     <br>
     <jsp:include page="/Tail.jsp" />
 </body>
