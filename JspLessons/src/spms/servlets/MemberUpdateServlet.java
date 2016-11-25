@@ -52,7 +52,7 @@ public class MemberUpdateServlet extends HttpServlet {
 			request.setAttribute("member", member);
 			
 			//JSP로 출력을 위임
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/member/MemberUpdateForm.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/member/el/MemberUpdateForm.jsp");
 			dispatcher.include(request, response);
 		} catch (Exception e) {
 			// request에 Exception 데이터 보관

@@ -31,8 +31,6 @@ public class MemberListServlet extends HttpServlet {
 		
 	    try {
 	    	ServletContext sc = this.getServletContext();
-//			Class.forName(sc.getInitParameter("driver"));
-//			conn = DriverManager.getConnection(sc.getInitParameter("url"), sc.getInitParameter("username"), sc.getInitParameter("password"));
 	    	conn = (Connection)sc.getAttribute("conn");
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery("select MNO, MNAME, EMAIL, CRE_DATE from MEMBERS order by MNO ASC");
@@ -52,11 +50,9 @@ public class MemberListServlet extends HttpServlet {
 			request.setAttribute("members", members);
 			
 			//JSP로 출력을 위임
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/member/MemberList.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/member/jstl/MemberList.jsp");
 			dispatcher.include(request, response);
 		} catch (Exception e) {
-			// throw new ServletException(e);
-			
 			// request에 Exception 데이터 보관
 			request.setAttribute("error", e);
 
@@ -67,7 +63,6 @@ public class MemberListServlet extends HttpServlet {
 	    finally {
 			try {if(rs != null) rs.close();} catch(Exception e) {}
 			try {if(stmt != null) stmt.close();} catch(Exception e) {}
-//			try {if(conn != null) conn.close();} catch(Exception e) {}
 		}
 	}
 
