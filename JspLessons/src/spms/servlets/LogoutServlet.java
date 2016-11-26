@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class LogoutServlet
  */
-@WebServlet("/auth/logout")
+@WebServlet(urlPatterns={"/auth/logout", "/auth/dao/logout"})
 public class LogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
