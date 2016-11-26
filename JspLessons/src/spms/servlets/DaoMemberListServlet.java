@@ -1,7 +1,6 @@
 package spms.servlets;
 
 import java.io.IOException;
-import java.sql.Connection;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -22,14 +21,9 @@ public class DaoMemberListServlet extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Connection conn = null;
-		
 	    try {
 	    	ServletContext sc = this.getServletContext();
-	    	conn = (Connection)sc.getAttribute("conn");
-			
-	    	MemberDao dao = new MemberDao();
-	    	dao.setConnecion(conn);
+	    	MemberDao dao = (MemberDao)sc.getAttribute("memberDao");
 			
 			// request에 회원 목록 데이터를 보관
 			request.setAttribute("members", dao.selectList());

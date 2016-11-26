@@ -1,7 +1,6 @@
 package spms.servlets;
 
 import java.io.IOException;
-import java.sql.Connection;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -33,14 +32,9 @@ public class DaoMemberAddServlet extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Connection conn = null;
-		
 	    try {
 	    	ServletContext sc = this.getServletContext();
-	    	conn = (Connection)sc.getAttribute("conn");
-	    	
-	    	MemberDao dao = new MemberDao();
-	    	dao.setConnecion(conn);
+	    	MemberDao dao = (MemberDao)sc.getAttribute("memberDao");
 
 	    	dao.insert(new Member().setName(request.getParameter("name"))
 	    			               .setEmail(request.getParameter("email"))
