@@ -6,10 +6,12 @@ package spms.listeners;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import javax.naming.InitialContext;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
+import javax.sql.DataSource;
 
 import org.apache.tomcat.dbcp.dbcp.BasicDataSource;
 
@@ -21,7 +23,6 @@ import spms.dao.MemberDao;
  */
 @WebListener
 public class ContextLoaderListener implements ServletContextListener {
-	BasicDataSource ds;
 	Connection conn;
 
 	/* (non-Javadoc)
@@ -33,12 +34,9 @@ public class ContextLoaderListener implements ServletContextListener {
 		try {
 	    	ServletContext sc = event.getServletContext();
 	    	
-	    	ds = new BasicDataSource();
-	    	ds.setDriverClassName(sc.getInitParameter("driver"));
-	    	ds.setUrl(sc.getInitParameter("url"));
-	    	ds.setUsername(sc.getInitParameter("username"));
-	    	ds.setPassword(sc.getInitParameter("password"));
-			
+	    	InitialContext initialContext = new InitialContext();
+	    	DataSource ds = (DataSource)initialContext.lookup("java:comp/env/jdbc/studydb");
+	    	
 			MemberDao dao = new MemberDao();
 			dao.setDataSource(ds);
 			
@@ -60,12 +58,6 @@ public class ContextLoaderListener implements ServletContextListener {
 		try {
 			if(conn != null && conn.isClosed() == false)
 				conn.close();
-		}
-    	catch (SQLException e) {}
-		
-    	try {
-    		if(ds != null)
-				ds.close();
 		}
     	catch (SQLException e) {}
 	}
