@@ -29,7 +29,7 @@ public class MemberDeleteServlet extends HttpServlet {
 	    	dao.delete(Integer.parseInt(request.getParameter("no")));
 			
 			// Set View Url
-			request.setAttribute("viewUrl", "/member/MemberDeleteSuccess.jsp");
+			request.setAttribute("viewUrl", "MemberDeleteSuccess.jsp");
 		}
 	    catch (Exception e) {
 			throw new ServletException(e);
