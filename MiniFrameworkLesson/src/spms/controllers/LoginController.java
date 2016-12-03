@@ -8,7 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import spms.abstracts.IController;
-import spms.dao.MemberDao;
+import spms.abstracts.IMemberDao;
 import spms.vo.Member;
 
 /**
@@ -16,7 +16,13 @@ import spms.vo.Member;
  *
  */
 public class LoginController implements IController {
-
+    IMemberDao dao;
+	
+	public IController setMemberDao(IMemberDao memberDao) {
+		this.dao = memberDao;
+		return this;
+	}
+	
 	/* (non-Javadoc)
 	 * @see spms.abstracts.IController#execute(java.util.Map)
 	 */
@@ -25,7 +31,6 @@ public class LoginController implements IController {
 		if(!model.containsKey("member"))      //if GET Method
 			return "LoginForm.jsp";
 		else {                                //else POST Method
-			MemberDao dao = (MemberDao) model.get("memberDao");
 			Member member = (Member) model.get("member");
 			
 			Member loginUser = dao.exist(member.getEmail(), member.getPassword());

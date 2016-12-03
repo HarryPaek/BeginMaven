@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import spms.dao.MemberDao;
+import spms.dao.MySqlMemberDao;
 
 /**
  * Servlet implementation class MemberDeleteServlet
@@ -24,7 +24,7 @@ public class MemberDeleteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    try {
 	    	ServletContext sc = this.getServletContext();
-	    	MemberDao dao = (MemberDao)sc.getAttribute("memberDao");
+	    	MySqlMemberDao dao = (MySqlMemberDao)sc.getAttribute("memberDao");
 	    	
 	    	dao.delete(Integer.parseInt(request.getParameter("no")));
 			

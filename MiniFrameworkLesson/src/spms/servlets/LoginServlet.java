@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import spms.dao.MemberDao;
+import spms.dao.MySqlMemberDao;
 import spms.vo.Member;
 
 /**
@@ -36,7 +36,7 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    try {
 	    	ServletContext sc = this.getServletContext();
-	    	MemberDao dao = (MemberDao)sc.getAttribute("memberDao");
+	    	MySqlMemberDao dao = (MySqlMemberDao)sc.getAttribute("memberDao");
 	    	
 	    	Member member = dao.exist(request.getParameter("email"), request.getParameter("password"));
 			

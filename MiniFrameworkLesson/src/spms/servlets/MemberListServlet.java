@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import spms.dao.MemberDao;
+import spms.dao.MySqlMemberDao;
 
 /**
  * Servlet implementation class MemberListServlet
@@ -22,7 +22,7 @@ public class MemberListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    try {
 	    	ServletContext sc = this.getServletContext();
-	    	MemberDao dao = (MemberDao)sc.getAttribute("memberDao");
+	    	MySqlMemberDao dao = (MySqlMemberDao)sc.getAttribute("memberDao");
 			
 			// request에 회원 목록 데이터를 보관
 			request.setAttribute("members", dao.selectList());

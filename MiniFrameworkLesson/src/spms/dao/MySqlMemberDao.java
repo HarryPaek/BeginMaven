@@ -9,13 +9,14 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import spms.abstracts.IMemberDao;
 import spms.vo.Member;
 
 /**
  * @author HarryPaek
  *
  */
-public class MemberDao {
+public class MySqlMemberDao implements IMemberDao {
     DataSource ds;
     
     public void setDataSource(DataSource ds) {

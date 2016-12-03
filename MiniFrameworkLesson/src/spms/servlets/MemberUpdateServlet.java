@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import spms.dao.MemberDao;
+import spms.dao.MySqlMemberDao;
 import spms.vo.Member;
 
 /**
@@ -26,7 +26,7 @@ public class MemberUpdateServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    try {
 	    	ServletContext sc = this.getServletContext();
-	    	MemberDao dao = (MemberDao)sc.getAttribute("memberDao");
+	    	MySqlMemberDao dao = (MySqlMemberDao)sc.getAttribute("memberDao");
 			
 			// request에 회원 데이터를 보관
 			request.setAttribute("member", dao.select(Integer.parseInt(request.getParameter("no"))));
@@ -45,7 +45,7 @@ public class MemberUpdateServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    try {
 	    	ServletContext sc = this.getServletContext();
-	    	MemberDao dao = (MemberDao)sc.getAttribute("memberDao");
+	    	MySqlMemberDao dao = (MySqlMemberDao)sc.getAttribute("memberDao");
 	    	Member member = (Member)request.getAttribute("member");
 	    	dao.update(member);
 			
