@@ -2,6 +2,7 @@ package spms.servlets;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -12,7 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import spms.abstracts.IController;
-import spms.vo.Member;
+import spms.abstracts.IDataBinding;
+import spms.bind.ServletRequestDataBinder;
 
 /**
  * Servlet implementation class DispatcherServlet
@@ -30,42 +32,12 @@ public class DispatcherServlet extends HttpServlet {
 			ServletContext sc = this.getServletContext();
 			
 			HashMap<String, Object> model = new HashMap<String, Object>();
+			model.put("session", request.getSession());
 			
 			IController pageController = (IController) sc.getAttribute(servletPath);
 			
-			if("/member/add.do".equals(servletPath)) {
-				if(request.getParameter("email") != null) {
-					model.put("member", new Member()
-							.setEmail(request.getParameter("email"))
-							.setPassword(request.getParameter("password"))
-							.setName(request.getParameter("name")));
-				}
-			}
-			else if("/member/update.do".equals(servletPath)) {
-				if(request.getParameter("email") == null) {
-					model.put("member", new Member().setNo(Integer.parseInt(request.getParameter("no"))));
-				}
-				else {
-					model.put("member", new Member()
-							.setNo(Integer.parseInt(request.getParameter("no")))
-							.setEmail(request.getParameter("email"))
-							.setName(request.getParameter("name")));
-				}
-			}
-			else if("/member/delete.do".equals(servletPath)) {
-				model.put("member", new Member().setNo(Integer.parseInt(request.getParameter("no"))));
-			}
-			else if("/auth/login.do".equals(servletPath)) {
-				if(request.getParameter("email") != null) {
-					model.put("session", request.getSession());
-					model.put("member", new Member()
-							.setEmail(request.getParameter("email"))
-							.setPassword(request.getParameter("password")));
-				}
-			}
-			else if("/auth/logout.do".equals(servletPath)) {
-				model.put("session", request.getSession());
-			}
+			if(pageController instanceof IDataBinding)
+				prepareRequestData(request, model, (IDataBinding)pageController);
 			
 			String viewUrl = pageController.execute(model);
 				
@@ -88,6 +60,14 @@ public class DispatcherServlet extends HttpServlet {
 			request.setAttribute("error", e);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/Error.jsp");
 			dispatcher.forward(request, response);
+		}
+	}
+
+	private void prepareRequestData(HttpServletRequest request, HashMap<String, Object> model, IDataBinding dataBinding) throws Exception {
+		Map<String, Class<?>> dataBinders = dataBinding.getDataBinders();
+		
+		for (String dataName : dataBinders.keySet()) {
+			model.put(dataName, ServletRequestDataBinder.bind(request, dataBinders.get(dataName), dataName));
 		}
 	}
 }

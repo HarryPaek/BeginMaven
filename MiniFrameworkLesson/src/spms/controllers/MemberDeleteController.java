@@ -3,18 +3,19 @@
  */
 package spms.controllers;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import spms.abstracts.IController;
+import spms.abstracts.IDataBinding;
 import spms.abstracts.IMemberDao;
-import spms.dao.MySqlMemberDao;
 import spms.vo.Member;
 
 /**
  * @author HarryPaek
  *
  */
-public class MemberDeleteController implements IController {
+public class MemberDeleteController implements IController, IDataBinding {
 	IMemberDao dao;
 	
 	public IController setMemberDao(IMemberDao memberDao) {
@@ -22,6 +23,14 @@ public class MemberDeleteController implements IController {
 		return this;
 	}
 	
+	@Override
+	public Map<String, Class<?>> getDataBinders() {
+		HashMap<String, Class<?>> binders = new HashMap<String, Class<?>>();
+		binders.put("member", spms.vo.Member.class);
+		
+		return binders;
+	}
+
 	/* (non-Javadoc)
 	 * @see spms.abstracts.IController#execute(java.util.Map)
 	 */
