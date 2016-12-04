@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import spms.abstracts.IController;
 import spms.abstracts.IDataBinding;
 import spms.bind.ServletRequestDataBinder;
+import spms.context.ApplicationContext;
+import spms.listeners.ContextLoaderListener;
 
 /**
  * Servlet implementation class DispatcherServlet
@@ -29,12 +30,15 @@ public class DispatcherServlet extends HttpServlet {
 		String servletPath = request.getServletPath();
 		
 		try {
-			ServletContext sc = this.getServletContext();
+			ApplicationContext ctx = ContextLoaderListener.getApplicationContext();
 			
 			HashMap<String, Object> model = new HashMap<String, Object>();
 			model.put("session", request.getSession());
 			
-			IController pageController = (IController) sc.getAttribute(servletPath);
+			IController pageController = (IController) ctx.getBeans(servletPath);
+			
+			if(pageController == null)
+				throw new Exception("요청한 서비스를 찾을 수 없습니다.");
 			
 			if(pageController instanceof IDataBinding)
 				prepareRequestData(request, model, (IDataBinding)pageController);
