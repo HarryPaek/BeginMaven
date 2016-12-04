@@ -9,12 +9,14 @@ import java.util.Map;
 import spms.abstracts.IController;
 import spms.abstracts.IDataBinding;
 import spms.abstracts.IMemberDao;
+import spms.annotation.Component;
 import spms.vo.Member;
 
 /**
  * @author HarryPaek
  *
  */
+@Component("/member/update.do")
 public class MemberUpdateController implements IController, IDataBinding {
     IMemberDao dao;
 	

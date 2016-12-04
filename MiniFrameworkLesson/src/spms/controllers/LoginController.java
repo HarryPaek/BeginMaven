@@ -11,12 +11,14 @@ import javax.servlet.http.HttpSession;
 import spms.abstracts.IController;
 import spms.abstracts.IDataBinding;
 import spms.abstracts.IMemberDao;
+import spms.annotation.Component;
 import spms.vo.Member;
 
 /**
  * @author HarryPaek
  *
  */
+@Component("/auth/login.do")
 public class LoginController implements IController, IDataBinding {
     IMemberDao dao;
 	

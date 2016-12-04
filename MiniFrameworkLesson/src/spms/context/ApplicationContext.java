@@ -7,9 +7,14 @@ import java.io.FileReader;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Properties;
+import java.util.Set;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
+
+import org.reflections.Reflections;
+
+import spms.annotation.Component;
 
 /**
  * @author HarryPaek
@@ -23,9 +28,10 @@ public class ApplicationContext {
 		properties.load(new FileReader(propertiesPath));
 		
 		prepareObjects(properties);
+		prepareAnnotationObjects();
 		injectDependency();
 	}
-	
+
 	public Object getBeans(String key) {
 		return objectTable.get(key);
 	}
@@ -38,6 +44,16 @@ public class ApplicationContext {
 				objectTable.put(key, ctx.lookup(properties.getProperty(key)));
 			else
 				objectTable.put(key, Class.forName(properties.getProperty(key)).newInstance());
+		}
+	}
+	
+	private void prepareAnnotationObjects() throws Exception {
+		Reflections reflector = new Reflections("");
+		Set<Class<?>> list = reflector.getTypesAnnotatedWith(Component.class);
+		
+		for (Class<?> clazz : list) {
+			String key = clazz.getAnnotation(Component.class).value();
+			objectTable.put(key, clazz.newInstance());
 		}
 	}
 	
@@ -57,7 +73,6 @@ public class ApplicationContext {
 					method.invoke(object, dependency);
 			}
 		}
-		
 	}
 
 	private Object findObjectByType(Class<?> type) {

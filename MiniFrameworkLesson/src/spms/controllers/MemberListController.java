@@ -7,11 +7,13 @@ import java.util.Map;
 
 import spms.abstracts.IController;
 import spms.abstracts.IMemberDao;
+import spms.annotation.Component;
 
 /**
  * @author HarryPaek
  *
  */
+@Component("/member/list.do")
 public class MemberListController implements IController {
 	IMemberDao dao;
 	

@@ -8,11 +8,13 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import spms.abstracts.IController;
+import spms.annotation.Component;
 
 /**
  * @author HarryPaek
  *
  */
+@Component("/auth/logout.do")
 public class LogoutController implements IController {
 
 	/* (non-Javadoc)
