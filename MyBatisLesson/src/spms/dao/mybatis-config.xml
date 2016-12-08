@@ -4,6 +4,9 @@
 <!--
     <properties resource="spms/dao/db.properties" />
 -->
+    <settings>
+        <setting name="logImpl" value="LOG4J2"/>
+    </settings>
     
     <typeAliases>
         <typeAlias type="spms.vo.Project" alias="project"/>
