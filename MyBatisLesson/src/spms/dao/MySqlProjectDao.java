@@ -3,6 +3,7 @@
  */
 package spms.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -31,11 +32,11 @@ public class MySqlProjectDao implements IProjectDao {
 	 * @see spms.abstracts.IProjectDao#selectList()
 	 */
 	@Override
-	public List<Project> selectList() throws Exception {
+	public List<Project> selectList(HashMap<String, Object> paramMap) throws Exception {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		
 	    try {
-	    	return sqlSession.selectList("spms.dao.ProjectDao.selectList");
+	    	return sqlSession.selectList("spms.dao.ProjectDao.selectList", paramMap);
 		}
 	    finally {
 	    	sqlSession.close();
@@ -74,8 +75,34 @@ public class MySqlProjectDao implements IProjectDao {
         SqlSession sqlSession = sqlSessionFactory.openSession();
 		
 	    try {
-	    	int count = sqlSession.update("spms.dao.ProjectDao.update", project);
-	    	sqlSession.commit();
+	    	Project original = sqlSession.selectOne("spms.dao.ProjectDao.select", project.getNo());
+	    	
+	    	HashMap<String, Object> paramMap = new HashMap<String, Object>();
+	    	
+	    	if(!project.getTitle().equals(original.getTitle()))
+	    		paramMap.put("title", project.getTitle());
+	    	
+	    	if(!project.getContent().equals(original.getContent()))
+	    		paramMap.put("content", project.getContent());
+	    	
+	    	if(project.getStartDate().compareTo(original.getStartDate()) != 0)
+	    		paramMap.put("startDate", project.getStartDate());
+	    	
+	    	if(project.getEndDate().compareTo(original.getEndDate()) != 0)
+	    		paramMap.put("endDate", project.getEndDate());
+	    	
+	    	if(project.getState() != original.getState())
+	    		paramMap.put("state", project.getState());
+	    	
+	    	if(!project.getTags().equals(original.getTags()))
+	    		paramMap.put("tags", project.getTags());
+	    	
+	    	int count = 0;
+	    	if(paramMap.size() > 0) {
+	    		paramMap.put("no", project.getNo());
+	    		count = sqlSession.update("spms.dao.ProjectDao.update", paramMap);
+	    		sqlSession.commit();
+	    	}
 	    	
 	    	return count;
 		}

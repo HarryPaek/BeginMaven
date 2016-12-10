@@ -3,8 +3,9 @@
  */
 package spms.abstracts;
 
+import java.util.HashMap;
 import java.util.List;
-import javax.sql.DataSource;
+
 import spms.vo.Member;
 
 /**
@@ -12,8 +13,7 @@ import spms.vo.Member;
  *
  */
 public interface IMemberDao {
-	void setDataSource(DataSource ds);
-	List<Member> selectList() throws Exception;
+	List<Member> selectList(HashMap<String, Object> paramMap) throws Exception;
 	int insert(Member member) throws Exception;
 	Member select(int no) throws Exception;
 	int update(Member member) throws Exception;

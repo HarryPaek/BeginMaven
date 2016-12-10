@@ -20,9 +20,30 @@
     <jsp:include page="/Header.jsp" />
     <h1>프로젝트 목록</h1>
     <p><a href='add.do'>신규 프로젝트</a></p>
+    <jsp:useBean id="orderCond" scope="request" class="java.lang.String" type="java.lang.String"/>
     <jsp:useBean id="projects" scope="request" class="java.util.ArrayList" type="java.util.ArrayList<Project>" />
     <table border="1">
-        <tr><th>번호</th><th>제목</th><th>시작일</th><th>종료일</th><th>상태</th><th>등록일</th><th></th></tr>
+        <tr>
+            <th>
+            <% if(orderCond.equalsIgnoreCase("PNO_ASC")) {%>
+                <a href="list.do?orderCond=PNO_DESC">번호↑</a>
+            <%} else if(orderCond.equalsIgnoreCase("PNO_DESC")) {%>
+                <a href="list.do?orderCond=PNO_ASC">번호↓</a>
+            <%} else {%>
+                <a href="list.do?orderCond=PNO_ASC">번호</a>
+            <%} %>
+            </th>
+            <th>
+            <% if(orderCond.equalsIgnoreCase("TITLE_ASC")) {%>
+                <a href="list.do?orderCond=TITLE_DESC">제목↑</a>
+            <%} else if(orderCond.equalsIgnoreCase("TITLE_DESC")) {%>
+                <a href="list.do?orderCond=TITLE_ASC">제목↓</a>
+            <%} else {%>
+                <a href="list.do?orderCond=TITLE_ASC">제목</a>
+            <%} %>
+            </th>
+            <th>시작일</th><th>종료일</th><th>상태</th><th>등록일</th><th></th>
+        </tr>
     <%
     for(Project project : projects) {
     %>

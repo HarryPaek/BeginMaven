@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import spms.abstracts.AbstractAuthController;
 import spms.abstracts.IController;
 import spms.annotation.Component;
 
@@ -15,7 +16,7 @@ import spms.annotation.Component;
  *
  */
 @Component("/auth/logout.do")
-public class LogoutController implements IController {
+public class LogoutController extends AbstractAuthController implements IController {
 
 	/* (non-Javadoc)
 	 * @see spms.abstracts.IController#execute(java.util.Map)

@@ -3,14 +3,13 @@
  */
 package spms.controllers;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import spms.abstracts.AbstractAuthDataBindingController;
 import spms.abstracts.IController;
 import spms.abstracts.IDataBinding;
-import spms.abstracts.IMemberDao;
 import spms.annotation.Component;
 import spms.vo.Member;
 
@@ -19,21 +18,7 @@ import spms.vo.Member;
  *
  */
 @Component("/auth/login.do")
-public class LoginController implements IController, IDataBinding {
-    IMemberDao dao;
-	
-	public IController setMemberDao(IMemberDao memberDao) {
-		this.dao = memberDao;
-		return this;
-	}
-	
-	@Override
-	public Map<String, Class<?>> getDataBinders() {
-		HashMap<String, Class<?>> binders = new HashMap<String, Class<?>>();
-		binders.put("loginInfo", spms.vo.Member.class);
-		
-		return binders;
-	}
+public class LoginController extends AbstractAuthDataBindingController implements IController, IDataBinding {
 	
 	/* (non-Javadoc)
 	 * @see spms.abstracts.IController#execute(java.util.Map)

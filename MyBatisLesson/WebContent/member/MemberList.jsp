@@ -11,14 +11,42 @@
     <jsp:include page="/Header.jsp" />
     <h1>회원 목록</h1>
     <p><a href='add.do'>신규 회원</a></p>
+    <jsp:useBean id="orderCond" scope="request" class="java.lang.String" type="java.lang.String"/>
     <jsp:useBean id="members" scope="request" class="java.util.ArrayList" type="java.util.ArrayList<Member>" />
+    <table border="1">
+        <tr>
+            <th>
+            <% if(orderCond.equalsIgnoreCase("NO_ASC")) {%>
+                <a href="list.do?orderCond=NO_DESC">번호↑</a>
+            <%} else if(orderCond.equalsIgnoreCase("NO_DESC")) {%>
+                <a href="list.do?orderCond=NO_ASC">번호↓</a>
+            <%} else {%>
+                <a href="list.do?orderCond=NO_ASC">번호</a>
+            <%} %>
+            </th>
+            <th>
+            <% if(orderCond.equalsIgnoreCase("NAME_ASC")) {%>
+                <a href="list.do?orderCond=NAME_DESC">이름↑</a>
+            <%} else if(orderCond.equalsIgnoreCase("NAME_DESC")) {%>
+                <a href="list.do?orderCond=NAME_ASC">이름↓</a>
+            <%} else {%>
+                <a href="list.do?orderCond=NAME_ASC">이름</a>
+            <%} %>
+            </th>
+            <th>이메일</th><th>등록일</th><th>최근수정일</th><th></th>
+        </tr>
     <%
-    // ArrayList<Member> members = (ArrayList<Member>)request.getAttribute("members");
-        
     for(Member member : members) {
     %>
-        <%=member.getNo()%>, <a href='update.do?no=<%=member.getNo()%>'><%=member.getName()%></a>, <%=member.getEmail()%>, <%=member.getCreatedDate()%> <a href='delete.do?no=<%=member.getNo()%>'>[삭제]</a><br> 
+        <tr><td><%=member.getNo()%></td>
+            <td><a href='update.do?no=<%=member.getNo()%>'><%=member.getName()%></a></td>
+            <td><%=member.getEmail()%></td>
+            <td><%=member.getCreatedDate()%></td>
+            <td><%=member.getModifiedDate()%></td>
+            <td><a href='delete.do?no=<%=member.getNo()%>'>[삭제]</a></td>
+        </tr>
     <%} %>
+    </table>
     <jsp:include page="/Tail.jsp" />
 </body>
 </html>

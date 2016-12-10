@@ -3,6 +3,7 @@
  */
 package spms.abstracts;
 
+import java.util.HashMap;
 import java.util.List;
 
 import spms.vo.Project;
@@ -12,7 +13,7 @@ import spms.vo.Project;
  *
  */
 public interface IProjectDao {
-	List<Project> selectList() throws Exception;
+	List<Project> selectList(HashMap<String, Object> paramMap) throws Exception;
 	int insert(Project project) throws Exception;
 	Project select(int no) throws Exception;
 	int update(Project project) throws Exception;
