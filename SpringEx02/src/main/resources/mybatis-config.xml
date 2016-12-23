@@ -6,5 +6,8 @@
         <setting name="logImpl" value="LOG4J2"/>
     </settings>
 -->
+    <typeAliases>
+        <package name="net.foundation.domain"/>
+    </typeAliases>
 
 </configuration>

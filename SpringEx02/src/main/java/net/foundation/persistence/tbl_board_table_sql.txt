@@ -1,0 +1,32 @@
+CREATE TABLE tbl_board (
+    bno         INT          NOT NULL AUTO_INCREMENT,
+	title       VARCHAR(256) NOT NULL,
+	content     TEXT         NULL,
+	writer      VARCHAR(64)  NOT NULL,
+    regdate     TIMESTAMP    NOT NULL DEFAULT now(),
+	viewcnt     INT          DEFAULT 0,
+    primary key(bno)
+);
+
+/*
+INSERT into tbl_board (title, content, writer)
+VALUES ('제목입니다.', '내용(content)입니다.', 'usesr00');
+
+SELECT *
+  FROM tbl_board
+ WHERE bno = 1;
+ 
+
+SELECT *
+  FROM tbl_board
+ ORDER BY bno DESC;
+
+UPDATE tbl_board
+   SET title = '수정된 제목'
+ WHERE bno   = 1;
+ 
+DELETE
+  FROM tbl_board
+ WHERE bno = 1;  
+
+*/
