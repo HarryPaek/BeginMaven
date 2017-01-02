@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 
 import net.foundation.abstracts.IBoardDAO;
 import net.foundation.domain.BoardVO;
+import net.foundation.domain.Criteria;
 
 /**
  * @author HarryPaek
@@ -71,6 +72,32 @@ public class MySqlBoardDAO implements IBoardDAO {
 		return sqlSession.selectList(getMapper("listAll"));
 	}
 	
+	@Override
+	public List<BoardVO> listPage(int page) throws Exception {
+		logger.info("listPage() ................");
+		
+		if(page <= 0)
+			page = 1;
+		
+		page = (page - 1) * 10;
+		
+		return sqlSession.selectList(getMapper("listPage"), page);
+	}
+	
+	@Override
+	public List<BoardVO> listCriteria(Criteria criteria) throws Exception {
+		logger.info("listCriteria() ................");
+		
+		return sqlSession.selectList(getMapper("listCriteria"), criteria);
+	}
+	
+	@Override
+	public int getTotalCount() throws Exception {
+        logger.info("getTotalCount() ................");
+		
+		return sqlSession.selectOne(getMapper("getTotalCount"));
+	}
+
 	private String getMapper(String mapping)
 	{
 		String namesapce = "net.foundation.mapper.BoardDAO";

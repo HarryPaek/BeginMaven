@@ -3,6 +3,8 @@
  */
 package net.foundation.controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.junit.FixMethodOrder;
@@ -13,9 +15,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import net.foundation.abstracts.IBoardDAO;
 import net.foundation.domain.BoardVO;
+import net.foundation.domain.Criteria;
 
 /**
  * @author HarryPaek
@@ -67,4 +72,62 @@ public class BoardDAOTest {
 		
 		dao.delete(3);
 	}
+	
+	@Test
+	public void test05ListPage() throws Exception {
+        logger.info("test05ListPage() ................");
+        int page = 3;
+        
+        List<BoardVO> list = dao.listPage(page);
+        
+		for (BoardVO vo : list) {
+			logger.info(String.format("%8d: %s", vo.getBno(), vo.getTitle()));
+		}
+	}
+	
+	@Test
+	public void test06ListCriteria() throws Exception {
+        logger.info("test06ListCriteria() ................");
+        
+        Criteria criteria = new Criteria();
+        criteria.setPage(3);
+        criteria.setPerPageCount(20);
+        
+        List<BoardVO> list = dao.listCriteria(criteria);
+        
+		for (BoardVO vo : list) {
+			logger.info(String.format("%8d: %s", vo.getBno(), vo.getTitle()));
+		}
+	}
+	
+	@Test
+	public void test07URI() throws Exception {
+        logger.info("test07URI() ................");
+        
+        UriComponents uriComponents = UriComponentsBuilder.newInstance()
+        		.path("/board/read")
+        		.queryParam("bno", 12)
+        		.queryParam("perPageCount", 20)
+        		.build();
+        
+        logger.info("/board/read?bno=12&perPageCount=20");
+        logger.info(uriComponents.toString());
+	}
+	
+	@Test
+	public void test08URI2() throws Exception {
+        logger.info("test08URI2() ................");
+        
+        UriComponents uriComponents = UriComponentsBuilder.newInstance()
+        		.path("/{module}/{page}")
+        		.queryParam("bno", 12)
+        		.queryParam("perPageCount", 20)
+        		.build()
+        		.expand("board", "read")
+        		.encode();
+        
+        logger.info("/board/read?bno=12&perPageCount=20");
+        logger.info(uriComponents.toString());
+	}
+
 }

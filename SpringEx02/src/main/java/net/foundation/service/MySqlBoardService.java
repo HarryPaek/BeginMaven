@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import net.foundation.abstracts.IBoardDAO;
 import net.foundation.abstracts.IBoardService;
 import net.foundation.domain.BoardVO;
+import net.foundation.domain.Criteria;
 
 /**
  * @author HarryPaek
@@ -69,6 +70,20 @@ public class MySqlBoardService implements IBoardService {
 	public List<BoardVO> listAll() throws Exception {
 		logger.info("listAll() ................");
 		return dao.listAll();
+	}
+
+	@Override
+	public List<BoardVO> listCriteria(Criteria criteria) throws Exception {
+		logger.info("listCriteria() ................");
+		
+		return dao.listCriteria(criteria);
+	}
+
+	@Override
+	public int getTotalCount() throws Exception {
+		logger.info("getTotalCount() ................");
+		
+		return dao.getTotalCount();
 	}
 
 }
