@@ -26,4 +26,5 @@
     </bean>
     
     <context:component-scan base-package="net.foundation.persistence" />
+    <context:component-scan base-package="net.foundation.service" />
 </beans>

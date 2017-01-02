@@ -27,7 +27,7 @@
     
   </head>
       <!-- jQuery 2.2.3 -->
-    <script src="/resources/plugins/jQuery/jQuery-2.2.3.min.js"></script>
+    <script src="/resources/plugins/jQuery/jquery-2.2.3.min.js"></script>
   <body class="skin-blue sidebar-mini">
     <div class="wrapper">
       
