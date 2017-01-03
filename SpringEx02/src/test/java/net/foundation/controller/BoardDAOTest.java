@@ -21,6 +21,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import net.foundation.abstracts.IBoardDAO;
 import net.foundation.domain.BoardVO;
 import net.foundation.domain.Criteria;
+import net.foundation.domain.SearchCriteria;
 
 /**
  * @author HarryPaek
@@ -128,6 +129,69 @@ public class BoardDAOTest {
         
         logger.info("/board/read?bno=12&perPageCount=20");
         logger.info(uriComponents.toString());
+	}
+	
+	@Test
+	public void test09DynamicSQL01() throws Exception {
+		logger.info("test09DynamicSQL01() ................");
+		
+		SearchCriteria criteria = new SearchCriteria();
+		criteria.setPage(1);
+		criteria.setKeyword("글");
+		criteria.setSearchType("t");
+		
+		logger.info("===== ===== ===== ===== ===== ===== ===== ===== ===== =====");
+		List<BoardVO> list = dao.listSearch(criteria);
+
+		for (BoardVO vo : list) {
+			logger.info(String.format("%8d: %s", vo.getBno(), vo.getTitle()));
+		}
+		
+		logger.info("===== ===== ===== ===== ===== ===== ===== ===== ===== =====");
+		
+		logger.info(String.format("COUNT = [%8d]", dao.getTotalCountSearch(criteria)));
+	}
+	
+	@Test
+	public void test09DynamicSQL02() throws Exception {
+		logger.info("test09DynamicSQL02() ................");
+		
+		SearchCriteria criteria = new SearchCriteria();
+		criteria.setPage(1);
+		criteria.setKeyword("Harry");
+		criteria.setSearchType("w");
+		
+		logger.info("===== ===== ===== ===== ===== ===== ===== ===== ===== =====");
+		List<BoardVO> list = dao.listSearch(criteria);
+
+		for (BoardVO vo : list) {
+			logger.info(String.format("%8d: %s", vo.getBno(), vo.getTitle()));
+		}
+		
+		logger.info("===== ===== ===== ===== ===== ===== ===== ===== ===== =====");
+		
+		logger.info(String.format("COUNT = [%8d]", dao.getTotalCountSearch(criteria)));
+	}
+
+	@Test
+	public void test09DynamicSQL03() throws Exception {
+		logger.info("test09DynamicSQL03() ................");
+		
+		SearchCriteria criteria = new SearchCriteria();
+		criteria.setPage(1);
+		criteria.setKeyword("Harry");
+		criteria.setSearchType("tcw");
+		
+		logger.info("===== ===== ===== ===== ===== ===== ===== ===== ===== =====");
+		List<BoardVO> list = dao.listSearch(criteria);
+
+		for (BoardVO vo : list) {
+			logger.info(String.format("%8d: %s", vo.getBno(), vo.getTitle()));
+		}
+		
+		logger.info("===== ===== ===== ===== ===== ===== ===== ===== ===== =====");
+		
+		logger.info(String.format("COUNT = [%8d]", dao.getTotalCountSearch(criteria)));
 	}
 
 }

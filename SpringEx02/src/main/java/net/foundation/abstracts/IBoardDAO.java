@@ -7,6 +7,7 @@ import java.util.List;
 
 import net.foundation.domain.BoardVO;
 import net.foundation.domain.Criteria;
+import net.foundation.domain.SearchCriteria;
 
 /**
  * @author HarryPaek
@@ -28,4 +29,8 @@ public interface IBoardDAO {
 	public List<BoardVO> listCriteria(Criteria criteria) throws Exception;
 	
 	public int getTotalCount() throws Exception;
+	
+	public List<BoardVO> listSearch(SearchCriteria criteria) throws Exception;
+	
+	public int getTotalCountSearch(SearchCriteria criteria) throws Exception;
 }

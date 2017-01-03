@@ -15,6 +15,7 @@ import net.foundation.abstracts.IBoardDAO;
 import net.foundation.abstracts.IBoardService;
 import net.foundation.domain.BoardVO;
 import net.foundation.domain.Criteria;
+import net.foundation.domain.SearchCriteria;
 
 /**
  * @author HarryPaek
@@ -84,6 +85,20 @@ public class MySqlBoardService implements IBoardService {
 		logger.info("getTotalCount() ................");
 		
 		return dao.getTotalCount();
+	}
+
+	@Override
+	public List<BoardVO> listSearchCriteria(SearchCriteria criteria) throws Exception {
+        logger.info("listSearchCriteria() ................");
+		
+		return dao.listSearch(criteria);
+	}
+
+	@Override
+	public int getTotalCount(SearchCriteria criteria) throws Exception {
+        logger.info("getTotalCount() with SearchCriteria ................");
+		
+		return dao.getTotalCountSearch(criteria);
 	}
 
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.foundation.domain.BoardVO;
 import net.foundation.domain.Criteria;
+import net.foundation.domain.SearchCriteria;
 
 public interface IBoardService {
 	public void register(BoardVO vo) throws Exception;
@@ -14,4 +15,7 @@ public interface IBoardService {
 	
 	public List<BoardVO> listCriteria(Criteria criteria) throws Exception;
 	public int getTotalCount() throws Exception;
+	
+    public List<BoardVO> listSearchCriteria(SearchCriteria criteria) throws Exception;
+	public int getTotalCount(SearchCriteria criteria) throws Exception;
 }
