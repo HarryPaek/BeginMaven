@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>HandleBars Examples 01</title>
+    <script src="./plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.6/handlebars.js"></script>
+</head>
+<body>
+    <div id="displayDiv">
+    </div>
+    
+    <script id='template' type="text/x-handlebars-template">
+        <span>{{ name }}</span>
+        <div>
+            <span>{{ userid }}</span>
+            <span>{{ addr }}</span>
+        </div>
+    </script>
+    <script>
+        var source = $('#template').html();
+        var template = Handlebars.compile(source);
+        var data = {name:'홍길동', userid:'user00', addr:'대한민국 서울'};
+        
+        $('#displayDiv').html(template(data));
+    </script>
+</body>
+</html>

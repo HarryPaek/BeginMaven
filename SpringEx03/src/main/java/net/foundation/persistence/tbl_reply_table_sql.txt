@@ -1,0 +1,13 @@
+CREATE TABLE tbl_reply (
+    rno         INT           NOT NULL AUTO_INCREMENT,
+    bno         INT           NOT NULL DEFAULT 0,
+    replytext   VARCHAR(1000) NOT NULL,
+    replyer     VARCHAR(64)   NOT NULL,
+    regdate     TIMESTAMP     NOT NULL DEFAULT now(),
+    updatedate  TIMESTAMP     NOT NULL DEFAULT now(),
+    primary key(rno)
+);
+
+ALTER TABLE tbl_reply ADD CONSTRAINT fk_board FOREIGN KEY (bno) REFERENCES tbl_board (bno)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
