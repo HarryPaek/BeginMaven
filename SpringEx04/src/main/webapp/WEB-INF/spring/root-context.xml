@@ -29,6 +29,12 @@
         <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
     </bean>
     
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    
+    <tx:annotation-driven/>
+    
     <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
    
     <context:component-scan base-package="net.foundation.persistence" />

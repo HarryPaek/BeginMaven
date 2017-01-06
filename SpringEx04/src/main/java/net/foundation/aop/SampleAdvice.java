@@ -29,8 +29,8 @@ public class SampleAdvice {
 		logger.info("===== ===== ===== %%%%% %%%%% %%%%% ##### %%%%% %%%%% %%%%% ===== ===== =====");
 	}
 */	
-	
-	@Around("execution(* net.foundation.service.MessageService*.*(..))")
+
+	@Around("execution(* net.foundation.service.*Service*.*(..))")
 	public Object timeLog(ProceedingJoinPoint pjp) throws Throwable {
 		logger.info("===== ===== ===== %%%%% %%%%% %%%%% ##### %%%%% %%%%% %%%%% ===== ===== =====");
 		long startTime = System.currentTimeMillis();
@@ -44,5 +44,4 @@ public class SampleAdvice {
 		
 		return result;
 	}
-
 }

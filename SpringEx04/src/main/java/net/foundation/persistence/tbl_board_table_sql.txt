@@ -1,0 +1,46 @@
+CREATE TABLE tbl_board (
+    bno         INT          NOT NULL AUTO_INCREMENT,
+	title       VARCHAR(256) NOT NULL,
+	content     TEXT         NULL,
+	writer      VARCHAR(64)  NOT NULL,
+    regdate     TIMESTAMP    NOT NULL DEFAULT now(),
+	viewcnt     INT          DEFAULT 0,
+	replycnt    INT          DEFAULT 0,
+    primary key(bno)
+);
+
+/*
+alter table tbl_board add column replycnt INT DEFAULT 0;
+
+-- Batch update current reply count for each Board List
+UPDATE tbl_board
+   SET replycnt =
+     ( SELECT count(rno)
+         FROM tbl_reply
+        WHERE bno       = tbl_board.bno
+     )
+ WHERE bno              > 0 
+*/
+
+/*
+INSERT into tbl_board (title, content, writer)
+VALUES ('제목입니다.', '내용(content)입니다.', 'usesr00');
+
+SELECT *
+  FROM tbl_board
+ WHERE bno = 1;
+ 
+
+SELECT *
+  FROM tbl_board
+ ORDER BY bno DESC;
+
+UPDATE tbl_board
+   SET title = '수정된 제목'
+ WHERE bno   = 1;
+ 
+DELETE
+  FROM tbl_board
+ WHERE bno = 1;  
+
+*/

@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import net.foundation.abstracts.IMessageDAO;
 import net.foundation.abstracts.IMessageService;
@@ -31,6 +32,7 @@ public class MessageService implements IMessageService {
 	/* (non-Javadoc)
 	 * @see net.foundation.abstracts.IMessageService#addMessage(net.foundation.domain.MessageVO)
 	 */
+	@Transactional
 	@Override
 	public void addMessage(MessageVO vo) throws Exception {
         logger.info("addMessage() ................");
