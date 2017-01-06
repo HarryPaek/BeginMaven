@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.foundation.mapper.MessageDAO">
+    <insert id="create">
+        INSERT INTO tbl_message (targetid, sender, message)
+        VALUES (#{targetId}, #{sender}, #{message})
+    </insert>
+    
+    <select id="read" resultType="net.foundation.domain.MessageVO">
+        SELECT *
+          FROM tbl_message
+         WHERE mid = #{mid}
+    </select>
+
+    <update id="updateState">
+        UPDATE tbl_message
+           SET opendate = now()
+         WHERE mid = #{mid}
+    </update>
+</mapper>
