@@ -1,0 +1,15 @@
+CREATE TABLE tbl_message (
+    mid         INT           NOT NULL AUTO_INCREMENT,
+	targetid    VARCHAR(64)   NOT NULL,
+	sender      VARCHAR(64)   NOT NULL,
+	message     TEXT          NOT NULL,
+	opendate    TIMESTAMP,
+	senddate    TIMESTAMP     NOT NULL DEFAULT now(),
+    primary key(mid)
+);
+
+ALTER TABLE tbl_message ADD CONSTRAINT fk_usertarget
+FOREIGN KEY (targetid) REFERENCES tbl_user (uid);
+
+ALTER TABLE tbl_message ADD CONSTRAINT fk_usersender
+FOREIGN KEY (sender) REFERENCES tbl_user (uid);

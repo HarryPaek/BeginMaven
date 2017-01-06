@@ -1,0 +1,17 @@
+CREATE TABLE tbl_user (
+    uid         VARCHAR(64)   NOT NULL,
+	upw         VARCHAR(64)   NOT NULL,
+	uname       VARCHAR(128)  NOT NULL,
+    upoint      INT           NOT NULL DEFAULT 0,
+    primary key(uid)
+);
+
+
+/*
+INSERT INTO tbl_user(uid, upw, uname) values ('user00', 'user00', 'IRON MAN');
+INSERT INTO tbl_user(uid, upw, uname) values ('user01', 'user01', 'CAPTAIN');
+INSERT INTO tbl_user(uid, upw, uname) values ('user02', 'user02', 'HULK');
+INSERT INTO tbl_user(uid, upw, uname) values ('user03', 'user03', 'Thor');
+INSERT INTO tbl_user(uid, upw, uname) values ('user05', 'user05', 'Quick Silver');
+INSERT INTO tbl_user(uid, upw, uname) values ('harry',  'Test@1234', 'Harry(ChongGeun) Paek');
+*/
