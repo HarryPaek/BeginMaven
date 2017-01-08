@@ -10,7 +10,7 @@
                 <!-- general form elements -->
                 <div class="box">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Example03 HOME PAGE</h3>
+                        <h3 class="box-title">Example04 HOME PAGE</h3>
                     </div>
                     <div class="box-body">
                         <h4>Service time is ${serverTime}</h4>

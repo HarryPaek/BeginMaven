@@ -145,7 +145,40 @@ public class UploadController {
         
         return entity;
 	}
+	
+	@RequestMapping(value="/deleteAllFiles", method = RequestMethod.POST)
+	public @ResponseBody ResponseEntity<String> deleteFile(String[] files) throws Exception {
+		logger.info(String.format("Delete all files: %s", files.toString()));
+		
+		if(files == null || files.length == 0)
+			return new ResponseEntity<String>("deleted", HttpStatus.OK);
+        
+        try {
+    		for (String fileName : files) {
+    			String savedFilePath = fileName.replace('/', File.separatorChar);
+        		String fileFormatName = FileUtils.getFileFormatName(fileName);
+        		MediaType mediaType = MimeMediaUtils.getMediaType(fileFormatName);
 
+            	if(mediaType != null) {
+        			String front = savedFilePath.substring(0,12);
+        			String end = savedFilePath.substring(14);
+        			String originalImageFilePath = String.format("%s%s", front, end);
+        			
+        			logger.info(String.format("Original Image File Path: %s", originalImageFilePath));
+        			
+        			new File(uploadPath, originalImageFilePath).delete();
+        		}
+        		
+        		new File(uploadPath, savedFilePath).delete();
+    		}
+			
+    		return new ResponseEntity<>("deleted", HttpStatus.OK);
+		}
+        catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 
 	private String uploadFile(String originalFilename, byte[] fileData) throws Exception {
 		UUID uuid = UUID.randomUUID();

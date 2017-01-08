@@ -1,0 +1,10 @@
+CREATE TABLE tbl_attach (
+    fno         INT           NOT NULL AUTO_INCREMENT,
+	bno         INT           NOT NULL,
+	fullName    VARCHAR(256)  NOT NULL,
+	regdate     TIMESTAMP     NOT NULL DEFAULT now(),
+    primary key(fno)
+);
+
+ALTER TABLE tbl_attach ADD CONSTRAINT fk_board_attach
+FOREIGN KEY (bno) REFERENCES tbl_board (bno);

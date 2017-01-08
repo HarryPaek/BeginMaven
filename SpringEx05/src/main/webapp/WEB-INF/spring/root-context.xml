@@ -37,10 +37,8 @@
     
     <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
    
-<!--
     <context:component-scan base-package="net.foundation.persistence" />
     <context:component-scan base-package="net.foundation.service" />
--->
     <context:component-scan base-package="net.foundation.aop" />
     <aop:config></aop:config>
 </beans>
